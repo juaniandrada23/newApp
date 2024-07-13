@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { axiosInstance } from '../services/authService'; // Asegúrate de importar axiosInstance correctamente
 
 const Admin = () => {
     const [content, setContent] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/admin', { headers: { 'x-access-token': JSON.parse(localStorage.getItem('user')).token } })
-            .then(response => setContent(response.data))
-            .catch(error => {
+        const fetchAdminContent = async () => {
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                const token = user ? user.token : null;
+
+                const response = await axiosInstance.get('/auth/admin', {
+                    headers: { 'x-access-token': token }
+                });
+                setContent(response.data);
+            } catch (error) {
                 console.error('Admin content error', error);
                 setContent('Unauthorized');
-            });
+            }
+        };
+
+        fetchAdminContent();
     }, []);
 
     return <div>{content}</div>;

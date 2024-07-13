@@ -8,8 +8,14 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await authService.login(email, password);
-            window.location.href = '/';
+            const response = await authService.login(email, password);
+            const roles = response.roles;
+
+            if (roles.includes('admin')) {
+                window.location.href = '/admin';
+            } else {
+                window.location.href = '/';
+            }
         } catch (error) {
             console.error('Login error', error);
         }
@@ -31,4 +37,3 @@ const Login = () => {
 };
 
 export default Login;
-        
