@@ -50,14 +50,32 @@ exports.login = (req, res) => {
             return res.status(401).send('Invalid password');
         }
 
-        const token = jwt.sign({ id: user.id, role: user.role }, 'secret_key', { expiresIn: 60 });
-        req.session.token = token;
-        console.log('Login successful');
-        res.status(200).send({ token });
+        // Obtener los roles del usuario
+        User.findRolesByUserId(user.id, (err, roles) => {
+            if (err) {
+                console.log('Error fetching roles', err);
+                return res.status(500).send('Error fetching roles');
+            }
+
+            const token = jwt.sign({ id: user.id, roles: roles.map(role => role.name) }, 'secret_key', { expiresIn: 60 });
+            req.session.token = token;
+            console.log('Login successful');
+            res.status(200).send({ token, email: user.email, roles: roles.map(role => role.name) });
+        });
     });
 };
 
 exports.logout = (req, res) => {
-    req.session.destroy();
-    res.status(200).send('Logged out');
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error logging out:', err);
+            return res.status(500).send('Error logging out');
+        }
+        res.status(200).send('Logged out');
+        console.log('Logout!!');
+    });
+};
+
+exports.adminContent = (req, res) => {
+    res.status(200).send('This is the admin content');
 };

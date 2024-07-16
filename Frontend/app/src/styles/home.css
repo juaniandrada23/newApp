@@ -1,0 +1,208 @@
+/* Home.css */
+:root {
+    --contessa-50: #fbf6f5;
+    --contessa-100: #f6ecea;
+    --contessa-200: #f0dcd8;
+    --contessa-300: #e4c3bd;
+    --contessa-400: #d3a096;
+    --contessa-500: #ba7264;
+    --contessa-600: #aa6558;
+    --contessa-700: #8e5347;
+    --contessa-800: #77463d;
+    --contessa-900: #643f38;
+    --contessa-950: #351e1a;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--contessa-50);
+    transition: background-color 0.5s ease;
+}
+
+.home-header {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.5s ease;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--contessa-900);
+    transition: color 0.3s ease;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: var(--contessa-700);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--contessa-50);
+    background-color: var(--contessa-500);
+    transform: scale(1.05);
+}
+
+.home-main {
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1rem 2rem; /* Added padding-top to account for the fixed header */
+    transition: padding 0.3s ease;
+}
+
+.hero-section {
+    background: url('https://img.freepik.com/fotos-premium/joyeria-mujer-cadena-oro-joyeria-moda-sobre-fondo-seda_125966-3515.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--contessa-950);
+    transition: background 0.5s ease, padding 0.3s ease;
+}
+
+.main-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    transition: font-size 0.3s ease;
+}
+
+.main-description {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    transition: font-size 0.3s ease;
+}
+
+.shop-button {
+    background-color: var(--contessa-500);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.shop-button:hover {
+    background-color: var(--contessa-600);
+    transform: scale(1.05);
+}
+
+.features-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: var(--contessa-100);
+    transition: background-color 0.5s ease, padding 0.3s ease;
+}
+
+.feature {
+    text-align: center;
+    max-width: 300px;
+    margin: 1rem 0;
+    transition: margin 0.3s ease;
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--contessa-800);
+    margin-bottom: 0.5rem;
+    transition: font-size 0.3s ease;
+}
+
+.feature-description {
+    font-size: 1rem;
+    color: var(--contessa-700);
+    transition: font-size 0.3s ease;
+}
+
+.home-footer {
+    width: 100%;
+    background-color: var(--contessa-900);
+    padding: 1rem 0;
+    margin-top: auto;
+    transition: background-color 0.5s ease, padding 0.3s ease;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--contessa-50);
+    font-size: 0.875rem;
+    transition: font-size 0.3s ease;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .nav-links {
+        gap: 2rem;
+    }
+
+    .main-title {
+        font-size: 3.5rem;
+    }
+
+    .main-description {
+        font-size: 1.5rem;
+    }
+
+    .features-section {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .feature {
+        margin: 0 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-title {
+        font-size: 4rem;
+    }
+
+    .main-description {
+        font-size: 1.75rem;
+    }
+
+    .features-section {
+        justify-content: space-between;
+    }
+}

@@ -5,7 +5,7 @@ exports.verifyToken = (req, res, next) => {
     if (!token) return res.status(403).send('No token provided');
 
     jwt.verify(token, 'secret_key', (err, decoded) => {
-        if (err) return res.status(500).send('Failed to authenticate token');
+        if (err) return res.status(401).send('Unauthorized'); // Cambiado a 401
         req.userId = decoded.id;
         req.userRoles = decoded.roles;
         next();
