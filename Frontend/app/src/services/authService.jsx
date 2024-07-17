@@ -20,7 +20,6 @@ const login = async (email, password) => {
 
 const logout = () => {
     localStorage.removeItem('user');
-    window.location.href = '/login';  // Redirigir al login
 };
 
 const authService = {
