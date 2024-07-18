@@ -75,7 +75,3 @@ exports.logout = (req, res) => {
         console.log('Logout!!');
     });
 };
-
-exports.adminContent = (req, res) => {
-    res.status(200).send('This is the admin content');
-};

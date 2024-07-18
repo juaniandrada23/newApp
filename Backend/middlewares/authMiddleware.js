@@ -16,3 +16,8 @@ exports.isAdmin = (req, res, next) => {
     if (!req.userRoles.includes('admin')) return res.status(403).send('Require Admin Role');
     next();
 };
+
+exports.isClient = (req, res, next) => {
+    if (!req.userRoles.includes('client')) return res.status(403).send('Require Client Role');
+    next();
+};

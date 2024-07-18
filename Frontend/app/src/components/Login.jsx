@@ -18,7 +18,7 @@ const Login = () => {
       if (roles.includes("admin")) {
         window.location.href = "/admin";
       } else {
-        window.location.href = "/";
+        window.location.href = "/shop";
       }
     } catch (error) {
       console.error("Login error", error);

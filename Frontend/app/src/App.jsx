@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Admin from './components/Admin';
 import Home from './components/Home';
+import Shop from './components/Shop'
 import './styles/app.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin" element={<Admin />} />
+                    <Route path="/shop" element={<Shop />} />
                 </Routes>
             </div>
         </Router>

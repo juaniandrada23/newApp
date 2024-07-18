@@ -20,7 +20,6 @@ const Home = () => {
           <div>
             <Link to="/login">
               <button
-                href="/login"
                 className="mt-6 bg-contessa-500 text-white py-2 rounded-md hover:bg-contessa-600 transition duration-200 px-3 font-semibold text-sm"
               >
                 Start Shopping
