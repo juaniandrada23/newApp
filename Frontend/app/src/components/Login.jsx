@@ -14,7 +14,9 @@ const Login = () => {
     try {
       const response = await authService.login(email, password);
       const roles = response.roles || [];
-
+  
+      localStorage.setItem('user', JSON.stringify(response));
+  
       if (roles.includes("admin")) {
         window.location.href = "/admin";
       } else {
@@ -22,9 +24,9 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login error", error);
-      setError("Invalid login credentials");
+      setError("Credenciales incorrectas");
     }
-  };
+  };  
 
   return (
     <>
@@ -64,7 +66,7 @@ const Login = () => {
             >
               Log in
             </button>
-            {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+            {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
             <div className="text-center mt-4">
               ¿No tienes cuenta?{" "}
               <Link to="/register" className="text-contessa-600 hover:text-contessa-800">

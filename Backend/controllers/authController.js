@@ -12,21 +12,21 @@ exports.register = (req, res) => {
     User.findRoleByName(role, (err, roleId) => {
         if (err || !roleId) {
             console.error('Role not found');
-            return res.status(400).send('Role not found');
+            return res.status(400).send('Rol no encontrado');
         }
 
         // Crear el usuario
         User.create({ email, password: hashedPassword }, (err, userId) => {
             if (err) {
                 console.error('Error registering the user:', err);
-                return res.status(500).send('Error registering the user');
+                return res.status(500).send('Usuario ya registrado con ese email');
             }
 
             // Asignar el rol al usuario
             User.assignRole(userId, roleId, (err) => {
                 if (err) {
                     console.error('Error assigning role:', err);
-                    return res.status(500).send('Error assigning role');
+                    return res.status(500).send('Error asignando rol');
                 }
                 res.status(201).send({ userId });
             });

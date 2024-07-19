@@ -19,7 +19,8 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error("Register error", error);
-      setError("Registration failed. Please try again.");
+      // Si existe error.response.data, asignar ese mensaje, de lo contrario, un mensaje genérico
+      setError(error.response?.data || "Error registering the user");
     }
   };
 
@@ -83,7 +84,7 @@ const Register = () => {
             >
               Register
             </button>
-            {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+            {error && <p className="text-red-500 font-semibold text-center mt-4">{error}</p>}
             <div className="text-center mt-4">
               ¿Ya tienes cuenta?{" "}
               <Link
