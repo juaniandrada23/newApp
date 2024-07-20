@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
 import Footer from "../components/others/Footer";
 import Navbar from "../components/others/Navbar";
@@ -8,19 +8,30 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = authService.getCurrentUser();
+    if (user) {
+      const roles = user.roles || [];
+      if (roles.includes("admin")) {
+        navigate("/admin");
+      } else {
+        navigate("/shop");
+      }
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await authService.login(email, password);
       const roles = response.roles || [];
-  
-      localStorage.setItem('user', JSON.stringify(response));
-  
+
       if (roles.includes("admin")) {
-        window.location.href = "/admin";
+        navigate("/admin");
       } else {
-        window.location.href = "/shop";
+        navigate("/shop");
       }
     } catch (error) {
       console.error("Login error", error);

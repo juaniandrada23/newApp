@@ -6,6 +6,7 @@ import Admin from "./components/Admin";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
 import ProtectedRoute from "./services/ProtectedRoute";
+import Profile from "./components/Profile";
 import "./styles/app.css";
 
 function App() {
@@ -16,22 +17,19 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/admin"
-            element={
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={
               <ProtectedRoute roles={["admin"]}>
                 <Admin />
               </ProtectedRoute>
             }
-          />{" "}
-          <Route
-            path="/shop"
-            element={
+          />
+          <Route path="/shop" element={
               <ProtectedRoute roles={["client"]}>
                 <Shop />
               </ProtectedRoute>
             }
-          />{" "}
+          />
         </Routes>
       </div>
     </Router>

@@ -21,15 +21,21 @@ const login = async (email, password) => {
 const logout = async () => {
   try {
     await axios.post(`${API_URL}/logout`);
+    localStorage.removeItem("user");
   } catch (error) {
     console.error("Error logging out", error);
   }
+};
+
+const getCurrentUser = () => {
+  return JSON.parse(localStorage.getItem("user"));
 };
 
 const authService = {
   register,
   login,
   logout,
+  getCurrentUser,
 };
 
 export default authService;

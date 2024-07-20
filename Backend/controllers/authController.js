@@ -57,7 +57,7 @@ exports.login = (req, res) => {
                 return res.status(500).send('Error fetching roles');
             }
 
-            const token = jwt.sign({ id: user.id, roles: roles.map(role => role.name) }, 'secret_key', { expiresIn: 60 });
+            const token = jwt.sign({ id: user.id, roles: roles.map(role => role.name) }, 'secret_key', { expiresIn: 360 });
             req.session.token = token;
             console.log('Login successful');
             res.status(200).send({ token, email: user.email, roles: roles.map(role => role.name) });

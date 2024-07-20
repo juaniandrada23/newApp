@@ -16,6 +16,7 @@ const Admin = () => {
 
   const handleLogout = () => {
     authService.logout();
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
