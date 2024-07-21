@@ -30,17 +30,20 @@ const Navbar = () => {
 
   useEffect(() => {
     if (menuOpen) {
+      document.body.style.overflow = 'hidden';
       document.addEventListener('mousedown', handleClickOutside);
     } else {
+      document.body.style.overflow = 'auto';
       document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => {
+      document.body.style.overflow = 'auto';
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [menuOpen]);
 
   return (
-    <nav className="bg-contessa-100 p-4 shadow-md">
+    <nav className="bg-contessa-100 p-4 shadow-md relative">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="text-xl font-bold text-contessa-800">
@@ -83,9 +86,12 @@ const Navbar = () => {
                 </Link>
               )}
             </div>
+            {menuOpen && (
+              <div className="fixed inset-0 bg-contessa-950 bg-opacity-60 z-40" onClick={handleMenuToggle}></div>
+            )}
             <div
               ref={menuRef}
-              className={`lg:hidden absolute top-16 right-4 bg-contessa-100 shadow-lg rounded-md w-48 z-10 transition-all duration-300 ease-in-out transform ${menuOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-[-20px] opacity-0 scale-95 pointer-events-none'}`}
+              className={`lg:hidden border-2 shadow-contessa-900 border-contessa-600 absolute top-16 right-2 bg-contessa-100 shadow-md rounded-md w-48 z-50 transition-all duration-300 ease-in-out transform ${menuOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-[-20px] opacity-0 scale-95 pointer-events-none'}`}
             >
               <ul className="p-4 space-y-4">
                 {user ? (
