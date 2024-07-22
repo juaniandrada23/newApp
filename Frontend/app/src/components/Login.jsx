@@ -31,7 +31,7 @@ const Login = () => {
       if (roles.includes("admin")) {
         navigate("/admin");
       } else {
-        navigate("/shop");
+        navigate("/profile");
       }
     } catch (error) {
       console.error("Login error", error);
@@ -45,12 +45,12 @@ const Login = () => {
       <div className="flex flex-col min-h-screen bg-contessa-50 text-contessa-800">
         <div className="flex-grow flex flex-col justify-center items-center p-4">
           <form
-            className="bg-white p-8 rounded-lg shadow-xl shadow-contessa-800 w-full max-w-md"
+            className=" p-8 rounded-lg shadow-lg shadow-contessa-800 bg-contessa-300 w-full max-w-md"
             onSubmit={handleLogin}
           >
             <h2 className="text-2xl font-bold text-center text-contessa-800 mb-6">Log in</h2>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-contessa-600 mb-2">Email</label>
+              <label htmlFor="email" className="block text-contessa-600 mb-2 font-semibold">Email</label>
               <input
                 id="email"
                 type="email"
@@ -61,7 +61,7 @@ const Login = () => {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="password" className="block text-contessa-600 mb-2">Password</label>
+              <label htmlFor="password" className="block text-contessa-600 mb-2 font-semibold">Password</label>
               <input
                 id="password"
                 type="password"

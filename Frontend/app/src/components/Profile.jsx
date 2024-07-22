@@ -25,12 +25,39 @@ const Profile = () => {
     <>
       <Navbar />
       <div className="flex flex-col min-h-screen bg-contessa-50 text-contessa-800">
-        <div className="flex-grow flex flex-col items-center justify-center">
-          <div className="card w-full max-w-md bg-white shadow-xl shadow-contessa-800">
+        <div className="flex-grow flex flex-col items-center justify-center mx-4">
+          <div className="card w-full max-w-md shadow-xl shadow-contessa-800 bg-contessa-300 my-4 rounded-xl">
             <div className="card-body">
-              <h2 className="card-title text-center text-contessa-800">Perfil del usuario</h2>
+              <h2 className="card-title text-center text-contessa-800">
+                Perfil del usuario
+              </h2>
+              <div className="flex justify-center items-center flex-row">
+                <img
+                  className="w-28 h-28 rounded-3xl border-2 border-contessa-700 bg-contessa-100 shadow-lg p-1 shadow-contessa-950"
+                  src={user.imagen}
+                  alt="Imagen de perfil del usuario"
+                />
+              </div>
               <div className="form-control mb-4">
-                <label className="label text-contessa-600">Email</label>
+                <label className="label text-contessa-600 font-semibold">Nombre</label>
+                <input
+                  type="text"
+                  value={user.nombre}
+                  readOnly
+                  className="input input-bordered bg-contessa-200 text-contessa-800"
+                />
+              </div>
+              <div className="form-control mb-4">
+                <label className="label text-contessa-600 font-semibold">Apellido</label>
+                <input
+                  type="text"
+                  value={user.apellido}
+                  readOnly
+                  className="input input-bordered bg-contessa-200 text-contessa-800"
+                />
+              </div>
+              <div className="form-control mb-4">
+                <label className="label text-contessa-600 font-semibold">Email</label>
                 <input
                   type="text"
                   value={user.email}
@@ -39,7 +66,7 @@ const Profile = () => {
                 />
               </div>
               <div className="form-control mb-6">
-                <label className="label text-contessa-600">Roles</label>
+                <label className="label text-contessa-600 font-semibold">Roles</label>
                 <input
                   type="text"
                   value={user.roles.join(", ")}
