@@ -25,7 +25,7 @@ const Home = () => {
               perfecta para adornarte o regalar a un ser querido.
             </p>
             <div className="flex justify-center items-center">
-              <Link to="/login">
+              <Link to="/shop">
                 <button
                   className="flex justify-center items-center flex-row gap-2 mt-6 rounded-2xl font-semibold bg-contessa-500 text-white hover:bg-contessa-600 transition duration-200 px-4 xs:px-6 py-2 xs:py-3 text-base xs:text-lg"
                 >

@@ -21,7 +21,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute roles={["client"]}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/admin"
               element={
@@ -30,17 +37,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/shop"
-              element={
-                <ProtectedRoute roles={["client"]}>
-                  <Shop />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart/>} />
-
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </div>
       </Router>

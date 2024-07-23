@@ -1,4 +1,3 @@
-// Navbar.js
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
@@ -46,6 +45,8 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
+  const isAdmin = user && user.roles && user.roles.includes("admin");
+
   return (
     <nav className="bg-contessa-100 p-4 shadow-md relative">
       <div className="container mx-auto flex justify-between items-center">
@@ -74,7 +75,7 @@ const Navbar = () => {
               {user ? (
                 <>
                   {user.imagen && (
-                    <Link to="/profile">
+                    <Link to={isAdmin ? "/admin" : "/profile"}>
                       <img
                         src={user.imagen}
                         alt="Perfil"
@@ -82,7 +83,7 @@ const Navbar = () => {
                       />
                     </Link>
                   )}
-                  <Link to="/profile">
+                  <Link to={isAdmin ? "/admin" : "/profile"}>
                     <button className="bg-contessa-300 text-contessa-800 py-2 px-4 rounded-md hover:bg-contessa-400 transition duration-200 flex items-center gap-2">
                       Perfil <FaUser />
                     </button>
@@ -122,7 +123,7 @@ const Navbar = () => {
                   <>
                     {user.imagen && (
                       <li className="text-center">
-                        <Link to="/profile">
+                        <Link to={isAdmin ? "/admin" : "/profile"}>
                           <img
                             src={user.imagen}
                             alt="Perfil"
@@ -139,7 +140,7 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/profile">
+                      <Link to={isAdmin ? "/admin" : "/profile"}>
                         <button className="bg-contessa-300 shadow-md shadow-contessa-800 text-contessa-800 py-2 rounded-md hover:bg-contessa-400 transition duration-200 flex justify-center items-center gap-2 w-full">
                           Perfil <FaUser />
                         </button>
@@ -156,15 +157,6 @@ const Navbar = () => {
                     <h1 className="text-center text-contessa-900 font-semibold">
                       Hola {user.nombre}!
                     </h1>
-                    <li>
-                      <Link to="/cart">
-                        <button className="bg-contessa-300 shadow-md shadow-contessa-800 text-contessa-800 py-2 rounded-md hover:bg-contessa-400 transition duration-200 flex justify-center items-center gap-2 w-full">
-                          <FaShoppingCart />
-                          <span>{cart.length}</span>{" "}
-                          {/* Muestra la cantidad de productos en el carrito */}
-                        </button>
-                      </Link>
-                    </li>
                   </>
                 ) : (
                   <li>
@@ -175,6 +167,14 @@ const Navbar = () => {
                     </Link>
                   </li>
                 )}
+                <li>
+                  <Link to="/cart">
+                    <button className="bg-contessa-300 shadow-md shadow-contessa-800 text-contessa-800 py-2 rounded-md hover:bg-contessa-400 transition duration-200 flex justify-center items-center gap-2 w-full">
+                      <FaShoppingCart />
+                      <span>{cart.length}</span>
+                    </button>
+                  </Link>
+                </li>
               </ul>
             </div>
           </>

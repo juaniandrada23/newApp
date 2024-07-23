@@ -17,7 +17,7 @@ const Login = () => {
       if (roles.includes("admin")) {
         navigate("/admin");
       } else {
-        navigate("/shop");
+        navigate("/profile");
       }
     }
   }, [navigate]);

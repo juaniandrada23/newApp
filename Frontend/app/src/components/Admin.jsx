@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../services/authService";
-import { fetchAdminContent } from "../services/fetchContent.js";
 import Navbar from "../components/others/Navbar";
 import Footer from "../components/others/Footer";
+import Orders from "../components/others/Orders.jsx";
 
 const Admin = () => {
-  const [content, setContent] = useState("");
-  const [user, setUser] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchAdminContent(navigate, setUser, setContent);
-  }, [navigate]);
 
   const handleLogout = () => {
     authService.logout();
@@ -45,10 +40,7 @@ const Admin = () => {
               </button>
             </div>
           )}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Admin Content</h2>
-            <p>{content}</p>
-          </div>
+          <Orders />
         </div>
         <Footer />
       </div>
