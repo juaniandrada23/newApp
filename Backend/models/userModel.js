@@ -1,4 +1,4 @@
-const db = require('../config/dbConfig');
+import db from '../config/dbConfig.js';
 
 const User = {};
 
@@ -41,4 +41,4 @@ User.assignRole = (userId, roleId, callback) => {
     });
 };
 
-module.exports = User;
+export default User;

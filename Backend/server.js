@@ -1,8 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
+import express from 'express';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import cors from 'cors';
+import authRoutes from './routes/authRoutes.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
@@ -24,3 +27,4 @@ app.use('/auth', authRoutes);
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
+

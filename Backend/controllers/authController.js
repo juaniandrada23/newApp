@@ -1,8 +1,8 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import User from '../models/userModel.js';
 
-exports.register = (req, res) => {
+const register = (req, res) => {
     const { email, password, role } = req.body;
     console.log('Attempting to register user:', email, role);
 
@@ -34,7 +34,7 @@ exports.register = (req, res) => {
     });
 };
 
-exports.login = (req, res) => {
+const login = (req, res) => {
     const { email, password } = req.body;
     console.log('Attempting login with:', email);
 
@@ -57,7 +57,7 @@ exports.login = (req, res) => {
                 return res.status(500).send('Error fetching roles');
             }
 
-            const token = jwt.sign({ id: user.id, roles: roles.map(role => role.name) }, 'secret_key', { expiresIn: 5 });
+            const token = jwt.sign({ id: user.id, roles: roles.map(role => role.name) }, 'secret_key', { expiresIn: '1h' });
             req.session.token = token;
             console.log('Login successful');
             res.status(200).send({ token, email: user.email, roles: roles.map(role => role.name), nombre: user.name, apellido: user.lastname, imagen: user.image, numId: user.id  });
@@ -65,7 +65,7 @@ exports.login = (req, res) => {
     });
 };
 
-exports.logout = (req, res) => {
+const logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error('Error logging out:', err);
@@ -74,4 +74,10 @@ exports.logout = (req, res) => {
         res.status(200).send('Logged out');
         console.log('Logout!!');
     });
+};
+
+export default {
+    register,
+    login,
+    logout
 };

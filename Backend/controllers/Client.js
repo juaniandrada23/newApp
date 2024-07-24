@@ -1,6 +1,6 @@
-const Client = require('../models/clientModel');
+import Client from '../models/clientModel.js';
 
-exports.getMyOrders = (req, res) => {
+const getMyOrders = (req, res) => {
     const clientId = req.params.user_id; 
     Client.findOrdersById(clientId, (err, order) => {
         if (err) {
@@ -13,4 +13,8 @@ exports.getMyOrders = (req, res) => {
             }
         }
     });
+};
+
+export default {
+    getMyOrders
 };

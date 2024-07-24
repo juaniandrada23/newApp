@@ -1,12 +1,12 @@
-const db = require('../config/dbConfig');
+import db from '../config/dbConfig.js';
 
 const Client = {};
 
-Client.findOrdersById = (user_id, callback) => {
-    db.query('SELECT * FROM orders WHERE user_id = ?', [user_id], (err, results) => {
+Client.findOrdersById = (clientId, callback) => {
+    db.query('SELECT * FROM orders WHERE user_id = ?', [clientId], (err, results) => {
         if (err) callback(err, null);
-        else callback(null, results[0]);
+        else callback(null, results);
     });
 };
 
-module.exports = Client;
+export default Client;

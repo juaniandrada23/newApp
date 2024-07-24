@@ -1,6 +1,6 @@
-const Product = require('../models/productsModel');
+import Product from '../models/productsModel.js';
 
-exports.getAllProducts = (req, res) => {
+const getAllProducts = (req, res) => {
     // Usar el método findAllProducts del modelo Product para obtener todos los productos
     Product.findAllProducts((err, products) => {
         if (err) {
@@ -11,17 +11,22 @@ exports.getAllProducts = (req, res) => {
     });
 };
 
-exports.getProductById = (req, res) => {
+const getProductById = (req, res) => {
     const productId = req.params.id; // Obtener el ID del producto desde los parámetros de la ruta
     Product.findProductById(productId, (err, product) => {
         if (err) {
-            res.status(500).json({error: err.message});
+            res.status(500).json({ error: err.message });
         } else {
             if (product) {
                 res.status(200).json(product);
             } else {
-                res.status(404).json({message: 'Producto no encontrado'});
+                res.status(404).json({ message: 'Producto no encontrado' });
             }
         }
     });
+};
+
+export default {
+    getAllProducts,
+    getProductById
 };

@@ -11,6 +11,9 @@ import ProductDetail from "./components/others/ProductDetail";
 import "./styles/app.css";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./components/others/Cart";
+import Failure from './components/meliRoutes/Failure'
+import Success from './components/meliRoutes/Success'
+import Pending from './components/meliRoutes/Pending'
 
 function App() {
   return (
@@ -21,16 +24,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route
-              path="/profile"
+            <Route path="/profile"
               element={
                 <ProtectedRoute roles={["client"]}>
                   <Profile />
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/admin"
+            <Route path="/admin"
               element={
                 <ProtectedRoute roles={["admin"]}>
                   <Admin />
@@ -40,6 +41,9 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/failure" element={<Failure />} />
+            <Route path="/pending" element={<Pending />} />
           </Routes>
         </div>
       </Router>

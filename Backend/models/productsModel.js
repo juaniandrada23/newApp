@@ -1,4 +1,4 @@
-const db = require('../config/dbConfig');
+import db from '../config/dbConfig.js';
 
 const Product = {};
 
@@ -16,5 +16,4 @@ Product.findProductById = (id, callback) => {
     });
 };
 
-
-module.exports = Product;
+export default Product;

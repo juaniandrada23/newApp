@@ -1,6 +1,6 @@
-const Admin = require('../models/adminModel');
+import Admin from '../models/adminModel.js';
 
-exports.getAllOrders = (req, res) => {
+const getAllOrders = (req, res) => {
     Admin.seeAllOrders((err, orders) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -8,4 +8,8 @@ exports.getAllOrders = (req, res) => {
             res.status(200).json(orders);
         }
     });
+};
+
+export default {
+    getAllOrders
 };

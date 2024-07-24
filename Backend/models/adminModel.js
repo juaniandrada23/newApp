@@ -1,4 +1,4 @@
-const db = require('../config/dbConfig');
+import db from '../config/dbConfig.js';
 
 const Admin = {};
 
@@ -9,4 +9,4 @@ Admin.seeAllOrders = (callback) => {
     });
 };
 
-module.exports = Admin;
+export default Admin;
