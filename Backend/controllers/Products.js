@@ -1,7 +1,6 @@
 import Product from '../models/productsModel.js';
 
 const getAllProducts = (req, res) => {
-    // Usar el método findAllProducts del modelo Product para obtener todos los productos
     Product.findAllProducts((err, products) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -12,7 +11,7 @@ const getAllProducts = (req, res) => {
 };
 
 const getProductById = (req, res) => {
-    const productId = req.params.id; // Obtener el ID del producto desde los parámetros de la ruta
+    const productId = req.params.id;
     Product.findProductById(productId, (err, product) => {
         if (err) {
             res.status(500).json({ error: err.message });

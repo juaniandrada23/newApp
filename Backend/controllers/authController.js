@@ -8,21 +8,18 @@ const register = (req, res) => {
 
     const hashedPassword = bcrypt.hashSync(password, 8);
 
-    // Buscar el ID del rol proporcionado
     User.findRoleByName(role, (err, roleId) => {
         if (err || !roleId) {
             console.error('Role not found');
             return res.status(400).send('Rol no encontrado');
         }
 
-        // Crear el usuario
         User.create({ email, password: hashedPassword }, (err, userId) => {
             if (err) {
                 console.error('Error registering the user:', err);
                 return res.status(500).send('Usuario ya registrado con ese email');
             }
 
-            // Asignar el rol al usuario
             User.assignRole(userId, roleId, (err) => {
                 if (err) {
                     console.error('Error assigning role:', err);
@@ -50,7 +47,6 @@ const login = (req, res) => {
             return res.status(401).send('Invalid password');
         }
 
-        // Obtener los roles del usuario
         User.findRolesByUserId(user.id, (err, roles) => {
             if (err) {
                 console.log('Error fetching roles', err);
@@ -60,7 +56,7 @@ const login = (req, res) => {
             const token = jwt.sign({ id: user.id, roles: roles.map(role => role.name) }, 'secret_key', { expiresIn: '1h' });
             req.session.token = token;
             console.log('Login successful');
-            res.status(200).send({ token, email: user.email, roles: roles.map(role => role.name), nombre: user.name, apellido: user.lastname, imagen: user.image, numId: user.id  });
+            res.status(200).send({ token, email: user.email, roles: roles.map(role => role.name), nombre: user.nombre, apellido: user.apellido, imagen: user.image, numId: user.id  });
         });
     });
 };

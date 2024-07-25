@@ -1,36 +1,22 @@
 import React from "react";
 import { useCart } from "../../context/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import axios from "axios";
 
 const Cart = () => {
   const { cart, removeFromCart } = useCart();
-  console.log(cart)
-  // Calcular el total
+  const navigate = useNavigate();
+  console.log(cart);
+
   const total = cart.reduce(
-    (sum, product) => sum + product.price * product.quantity,
+    (sum, product) => sum + parseFloat(product.price) * product.quantity,
     0
   );
 
-  const handlePayment = async () => {
-    try {
-      const items = cart.map(product => ({
-        name: product.name,
-        quantity: product.quantity,
-        price: parseFloat(product.price) // Asegúrate de que el precio sea un número
-      }));
-
-      const response = await axios.post('http://localhost:3000/auth/create_preference', { items });
-      const { redirectUrl } = response.data;
-
-      // Redirigir a la página de Mercado Pago
-      window.location.href = redirectUrl;
-    } catch (error) {
-      console.error("Error creating preference:", error);
-    }
-  }; 
+  const handleProceedToOrder = () => {
+    navigate("/order-details");
+  };
 
   return (
     <>
@@ -87,7 +73,7 @@ const Cart = () => {
                 Total: ${total.toFixed(2)}
               </div>
               <button
-                onClick={handlePayment}
+                onClick={handleProceedToOrder}
                 className="bg-contessa-500 text-white py-2 px-4 rounded-md hover:bg-contessa-600 transition duration-200"
               >
                 Proceder al pago

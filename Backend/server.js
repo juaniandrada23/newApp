@@ -10,8 +10,8 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3001', // Cambia esto al origen de tu frontend
-    credentials: true // Permitir que las cookies sean enviadas
+    origin: 'http://localhost:3001', 
+    credentials: true 
 }));
 
 app.use(bodyParser.json());

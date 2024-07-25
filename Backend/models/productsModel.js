@@ -16,4 +16,13 @@ Product.findProductById = (id, callback) => {
     });
 };
 
+Product.updateStock = (id, quantity) => {
+  return new Promise((resolve, reject) => {
+    db.query('UPDATE products SET stock = stock - ? WHERE id = ?', [quantity, id], (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
 export default Product;

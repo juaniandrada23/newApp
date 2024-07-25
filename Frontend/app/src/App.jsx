@@ -11,9 +11,10 @@ import ProductDetail from "./components/others/ProductDetail";
 import "./styles/app.css";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./components/others/Cart";
-import Failure from './components/meliRoutes/Failure'
-import Success from './components/meliRoutes/Success'
-import Pending from './components/meliRoutes/Pending'
+import Failure from './components/meliRoutes/Failure';
+import Success from './components/meliRoutes/Success';
+import Pending from './components/meliRoutes/Pending';
+import OrderDetails from './components/others/OrdersDetails';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/success" element={<Success />} />
             <Route path="/failure" element={<Failure />} />
             <Route path="/pending" element={<Pending />} />
+            <Route path="/order-details" element={<OrderDetails />} />
           </Routes>
         </div>
       </Router>
