@@ -135,7 +135,7 @@ const ProductCard = () => {
                 labelId="demo-multiple-name-label"
                 id="demo-multiple-name"
                 multiple
-                className="mb-2"
+                className="mb-10"
               >
               </Select>
             </div>
