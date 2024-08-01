@@ -7,7 +7,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { MdExpandMore } from "react-icons/md";
-import { useCart } from "../../context/CartContext"; // Importa el hook useCart
+import { useCart } from "../../context/CartContext";
+import Select from "@mui/material/Select";
 
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
@@ -79,80 +80,107 @@ const ProductCard = () => {
 
   return (
     <div>
-      <Accordion className="mb-6">
-        <AccordionSummary
-          expandIcon={<MdExpandMore className="text-2xl text-contessa-100 font-bold"/>}
-          style={{ backgroundColor: "#77463d" }}
-        >
-          <h1 className="font-bold text-lg text-contessa-100">Filtros</h1>
-        </AccordionSummary>
-        <AccordionDetails style={{ backgroundColor: "#e4c3bd" }}>
-          <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-12 mb-4">
-            <div className="mx-2">
-              <TextField
-                label="Filtrar por nombre"
-                variant="outlined"
-                fullWidth
-                value={filterName}
-                onChange={handleNameFilterChange}
-                style={{ marginBottom: "0.5rem" }}
-              />
+      <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+        <Accordion className="md:h-0">
+          <AccordionSummary
+            expandIcon={
+              <MdExpandMore className="text-2xl text-contessa-100 font-bold" />
+            }
+            style={{ backgroundColor: "#77463d" }}
+          >
+            <h1 className="font-bold text-lg text-contessa-100">Filtros</h1>
+          </AccordionSummary>
+          <AccordionDetails style={{ backgroundColor: "#e4c3bd" }}>
+            <div className="grid xs:grid-cols-1 gap-2 mb-4">
+              <div className="mx-2">
+                <TextField
+                  label="Filtrar por nombre"
+                  variant="outlined"
+                  fullWidth
+                  value={filterName}
+                  onChange={handleNameFilterChange}
+                  style={{ marginBottom: "0.5rem" }}
+                />
+              </div>
+              <div className="flex justify-center flex-col items-center">
+                <h1 className="mb-1 font-semibold text-lg text-contessa-800">
+                  Precio
+                </h1>
+                <Slider
+                  value={[minPrice, maxPrice]}
+                  onChange={handlePriceChange}
+                  valueLabelDisplay="auto"
+                  min={0}
+                  max={100000}
+                  marks={marks}
+                  style={{ width: "80%" }}
+                />
+              </div>
             </div>
-            <div className="flex justify-center flex-col items-center">
-              <h1 className="mb-1 font-semibold text-lg text-contessa-800">
-                Precio
-              </h1>
-              <Slider
-                value={[minPrice, maxPrice]}
-                onChange={handlePriceChange}
-                valueLabelDisplay="auto"
-                min={0}
-                max={100000}
-                marks={marks}
-                style={{ width: "50%" }}
-              />
-            </div>
-          </div>
-          <div className="flex justify-center w-full">
-            <button className="bg-contessa-500 text-white py-2 px-4 rounded-md hover:bg-contessa-600 transition duration-200 flex items-center gap-2" onClick={applyFilters}>
-              Aplicar
-            </button>
-          </div>
-        </AccordionDetails>
-      </Accordion>
-      <div
-        className="product-list"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "0.5rem",
-        }}
-      >
-        {filteredProducts.length === 0 ? (
-          <div>No products found</div>
-        ) : (
-          filteredProducts.map((product) => (
-            <div
-              className="card bg-contessa-300 text-contessa-800 text-center p-6 shadow-lg rounded-lg cursor-pointer"
-              key={product.id}
-              onClick={() => handleCardClick(product.id)} // Usa la función handleCardClick
-            >
-              <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
-              <p className="mb-4">{product.description}</p>
-              <p className="text-lg font-semibold">Price: ${product.price}</p>
-              <p className="text-sm text-gray-600">Stock: {product.stock}</p>
+            <div className="flex justify-center w-full">
               <button
-                onClick={(e) => {
-                  e.stopPropagation(); // Evita que el click en el botón dispare el onClick de la card
-                  handleAddToCart(product);
-                }}
-                className="bg-contessa-500 text-white py-2 px-4 rounded-md hover:bg-contessa-600 transition duration-200"
+                className="bg-contessa-500 text-white py-2 px-4 rounded-md hover:bg-contessa-600 transition duration-200 flex items-center gap-2"
+                onClick={applyFilters}
               >
-                Añadir al carrito
+                Aplicar
               </button>
             </div>
-          ))
-        )}
+          </AccordionDetails>
+        </Accordion>
+
+        <div className="md:col-start-2 md:col-span-4">
+          <div className="font-bold">
+            <div className="flex justify-end mr-5">
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                multiple
+                className="mb-2"
+              >
+              </Select>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-2">
+            {filteredProducts.length === 0 ? (
+              <div className="col-span-full text-center text-gray-800">
+                No products found
+              </div>
+            ) : (
+              filteredProducts.map((product) => (
+                <div
+                  className="card bg-contessa-300 text-contessa-800 text-center p-4 shadow-lg rounded-lg cursor-pointer hover:bg-contessa-400 transition-colors duration-300 ease-in-out"
+                  key={product.id}
+                  onClick={() => handleCardClick(product.id)}
+                >
+                  <div className="flex justify-center items-center bg-white rounded-lg h-48">
+                    <img
+                      className="max-h-full max-w-full object-cover rounded"
+                      src={product.image}
+                      alt={`prod`}
+                    />
+                  </div>
+                  <h2 className="text-xl font-bold my-2">{product.name}</h2>
+                  <p className="text-sm mb-2">{product.description}</p>
+                  <p className="text-lg font-semibold">
+                    Precio: ${product.price}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Stock: {product.stock}
+                  </p>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevents click on the button from triggering the onClick on the card
+                      handleAddToCart(product);
+                    }}
+                    className="mt-2 bg-contessa-500 font-semibold text-white py-2 px-4 rounded hover:bg-contessa-600 focus:outline-none focus:ring-2 focus:ring-contessa-500 focus:ring-opacity-50"
+                  >
+                    Añadir al carrito
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

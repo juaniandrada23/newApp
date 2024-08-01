@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 import { SlLogout, SlLogin } from "react-icons/sl";
-import { FaUser, FaShoppingCart } from "react-icons/fa"; // Importa el icono de carrito
+import { FaUser, FaShoppingCart } from "react-icons/fa";
+import { LiaBoxSolid } from "react-icons/lia";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useCart } from "../../context/CartContext"; // Importa el hook useCart
@@ -88,6 +89,13 @@ const Navbar = () => {
                       Perfil <FaUser />
                     </button>
                   </Link>
+                  {isAdmin && (
+                    <Link to="/stockmanagement">
+                      <button className="bg-contessa-500 text-white py-2 px-4 rounded-md hover:bg-contessa-600 transition duration-200 flex items-center gap-2">
+                        Administrar <LiaBoxSolid />
+                      </button>
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="bg-contessa-500 text-white py-2 px-4 rounded-md hover:bg-contessa-600 transition duration-200 flex items-center gap-2"
@@ -145,6 +153,15 @@ const Navbar = () => {
                           Perfil <FaUser />
                         </button>
                       </Link>
+                    </li>
+                    <li>
+                      {isAdmin && (
+                        <Link to="/stockmanagement">
+                          <button className="bg-contessa-300 shadow-md shadow-contessa-800 text-contessa-800 py-2 rounded-md hover:bg-contessa-400 transition duration-200 flex justify-center items-center gap-2 w-full">
+                            Administrar <LiaBoxSolid />
+                          </button>
+                        </Link>
+                      )}
                     </li>
                     <li>
                       <button

@@ -44,7 +44,7 @@ const ProductDetail = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="flex justify-center">
             <img
-              src={product.imageUrl}
+              src={product.image}
               alt={product.name}
               className="rounded-lg shadow-lg max-w-full"
             />

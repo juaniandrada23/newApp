@@ -11,10 +11,11 @@ import ProductDetail from "./components/others/ProductDetail";
 import "./styles/app.css";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./components/others/Cart";
-import Failure from './components/meliRoutes/Failure';
-import Success from './components/meliRoutes/Success';
-import Pending from './components/meliRoutes/Pending';
-import OrderDetails from './components/others/OrdersDetails';
+import Failure from "./components/meliRoutes/Failure";
+import Success from "./components/meliRoutes/Success";
+import Pending from "./components/meliRoutes/Pending";
+import OrderDetails from "./components/others/OrdersDetails";
+import AddProduct from "./components/others/AddProduct";
 
 function App() {
   return (
@@ -25,17 +26,27 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile"
+            <Route
+              path="/profile"
               element={
                 <ProtectedRoute roles={["client"]}>
                   <Profile />
                 </ProtectedRoute>
               }
             />
-            <Route path="/admin"
+            <Route
+              path="/admin"
               element={
                 <ProtectedRoute roles={["admin"]}>
                   <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/stockmanagement"
+              element={
+                <ProtectedRoute roles={["admin"]}>
+                  <AddProduct />
                 </ProtectedRoute>
               }
             />

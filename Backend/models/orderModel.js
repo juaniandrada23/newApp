@@ -29,7 +29,7 @@ Order.createOrderDetail = (orderId, productId, quantity, price) => {
 };
 
 Order.seeAllOrderDetails = (orderId, callback) => {
-  db.query('SELECT * FROM order_details WHERE order_id = ?', [orderId], (err, results) => {
+  db.query('SELECT p.image, od.order_id, p.name,od.quantity, p.price, o.total FROM order_details od INNER JOIN orders o ON o.id = od.order_id INNER JOIN products p ON p.id = od.product_id WHERE order_id = ?', [orderId], (err, results) => {
       if (err) callback(err, null);
       else callback(null, results);
   });

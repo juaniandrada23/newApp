@@ -19,6 +19,8 @@ router.post('/logout', authController.logout);
 
 router.get('/products', products.getAllProducts);
 router.get('/products/:id', products.getProductById);
+router.post('/products/add', verifyToken, isAdmin, products.addProduct)
+router.delete('/products/:id', verifyToken, isAdmin, products.deleteProduct); 
 
 router.get('/orders', verifyToken, isAdmin, admin.getAllOrders);
 router.get('/orders/:user_id', verifyToken, isClient, clients.getMyOrders);
@@ -45,7 +47,7 @@ router.post("/create_preference", async (req, res) => {
       pending: "http://localhost:3001/pending"
     },
     auto_return: "approved",
-    notification_url: "https://ecda-201-235-18-135.ngrok-free.app/auth/webhook",
+    notification_url: "https://9082-201-235-18-135.ngrok-free.app/auth/webhook",
     metadata: metadata 
   };
 

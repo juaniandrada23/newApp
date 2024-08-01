@@ -4,7 +4,7 @@ import Navbar from "./others/Navbar";
 import Footer from "./others/Footer";
 import authService from "../services/authService";
 import axios from "axios";
-import { Modal, Box, Typography } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import { LuPackageSearch } from "react-icons/lu";
 
 const Profile = () => {
@@ -210,6 +210,7 @@ const Profile = () => {
               {orderDetails.map((detail, index) => (
                 <Box key={index} mb={2}>
                   <h1>Order ID: {detail.order_id}</h1>
+                  <img className="w-10 h-10" src={detail.image} alt="Imagen del producto"/>
                   <h1>Product ID: {detail.product_id}</h1>
                   <h1>Quantity: {detail.quantity}</h1>
                   <h1>Price: {detail.price}</h1>
@@ -217,7 +218,7 @@ const Profile = () => {
               ))}
             </Box>
           ) : (
-            <Typography>Cargando detalles...</Typography>
+            <h1>Cargando detalles...</h1>
           )}
         </Box>
       </Modal>
