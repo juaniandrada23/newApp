@@ -4,7 +4,7 @@ import Navbar from "./others/Navbar";
 import Footer from "./others/Footer";
 import authService from "../services/authService";
 import axios from "axios";
-import { Modal, Box } from "@mui/material";
+import { Modal } from "@mui/material";
 import { LuPackageSearch } from "react-icons/lu";
 
 const Profile = () => {
@@ -56,8 +56,10 @@ const Profile = () => {
   const handleClose = () => setOpen(false);
 
   if (!user) {
-    return null; 
+    return null;
   }
+
+  const totalOrden = orderDetails.length > 0 ? orderDetails[0].total : 0;
 
   return (
     <>
@@ -161,7 +163,7 @@ const Profile = () => {
                                 className="p-2 rounded-2xl font-bold bg-contessa-600 text-contessa-50"
                                 onClick={() => handleOpen(order.id)}
                               >
-                                <LuPackageSearch className="text-3xl"/>
+                                <LuPackageSearch className="text-3xl" />
                               </button>
                             </td>
                           </tr>
@@ -186,41 +188,58 @@ const Profile = () => {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        className="justify-center items-center flex flex-col"
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <h1 id="modal-modal-title" variant="h6" component="h2">
-            Detalles de la Orden
-          </h1>
+        <div className="relative bg-[#643f38] border border-[#e4c3bd] shadow-lg p-4 rounded-lg text-white xs:w-5/6 md:w-1/2">
           {orderDetails && orderDetails.length > 0 ? (
-            <Box id="modal-modal-description" sx={{ mt: 2 }}>
-              {orderDetails.map((detail, index) => (
-                <Box key={index} mb={2}>
-                  <h1>Order ID: {detail.order_id}</h1>
-                  <img className="w-10 h-10" src={detail.image} alt="Imagen del producto"/>
-                  <h1>Product ID: {detail.product_id}</h1>
-                  <h1>Quantity: {detail.quantity}</h1>
-                  <h1>Price: {detail.price}</h1>
-                </Box>
-              ))}
-            </Box>
+            <>
+              <h1
+                id="order-details-title"
+                className="font-semibold text-contessa-100 mb-4"
+              >
+                Detalles de la Orden - Número de orden:{" "}
+                {orderDetails[0].order_id}
+              </h1>
+              <div
+                id="order-details-description"
+                className="mt-2 max-h-96 overflow-y-auto"
+              >
+                {orderDetails.map((detail, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-row mb-4 p-2 bg-contessa-800 rounded-md"
+                  >
+                    <div className="w-1/2 p-2">
+                      <h1>Producto: {detail.name}</h1>
+                      <h1>Cantidad: {detail.quantity}</h1>
+                      <h1>Precio: ${detail.price}</h1>
+                    </div>
+                    <div className="w-1/2 flex justify-center items-center">
+                      <img
+                        className="w-full h-auto object-contain rounded"
+                        src={detail.image}
+                        alt="Imagen del producto"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="text-xl my-3 text-contessa-300 font-bold">
+                <h1>Total: ${totalOrden}</h1>
+              </div>
+            </>
           ) : (
             <h1>Cargando detalles...</h1>
           )}
-        </Box>
+          <div className="flex justify-end mt-1">
+            <button
+              className="bg-[#ba7264] hover:bg-[#aa6558] font-bold text-white py-2 px-4 rounded"
+              onClick={handleClose}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
       </Modal>
     </>
   );

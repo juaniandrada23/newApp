@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useCart } from "../../context/CartContext"; // Importa el hook useCart
+import { useCart } from "../../context/CartContext";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -10,7 +10,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { addToCart } = useCart(); // Usa el hook useCart
+  const { addToCart } = useCart();
 
   useEffect(() => {
     axios
@@ -65,9 +65,15 @@ const ProductDetail = () => {
             </div>
 
             <div className="mb-4">
-              <span className="text-sm text-gray-600">
-                Stock: {product.stock}
-              </span>
+              <p
+                className={`text-sm font-bold ${
+                  product.stock < 10 ? "text-red-500" : "text-green-500"
+                }`}
+              >
+                {product.stock < 10
+                  ? "¡Últimas unidades!"
+                  : "¡Stock disponible!"}
+              </p>
             </div>
 
             <button

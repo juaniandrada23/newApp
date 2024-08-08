@@ -10,7 +10,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const router = express.Router();
-console.log(process.env.ACCESS_TOKEN)
 const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN });
 
 router.post('/register', authController.register);
@@ -21,6 +20,7 @@ router.get('/products', products.getAllProducts);
 router.get('/products/:id', products.getProductById);
 router.post('/products/add', verifyToken, isAdmin, products.addProduct)
 router.delete('/products/:id', verifyToken, isAdmin, products.deleteProduct); 
+router.get('/filtered-products', products.filterProducts);
 
 router.get('/orders', verifyToken, isAdmin, admin.getAllOrders);
 router.get('/orders/:user_id', verifyToken, isClient, clients.getMyOrders);
@@ -47,7 +47,7 @@ router.post("/create_preference", async (req, res) => {
       pending: "http://localhost:3001/pending"
     },
     auto_return: "approved",
-    notification_url: "https://9082-201-235-18-135.ngrok-free.app/auth/webhook",
+    notification_url: "https://6731-190-247-70-69.ngrok-free.app/auth/webhook",
     metadata: metadata 
   };
 

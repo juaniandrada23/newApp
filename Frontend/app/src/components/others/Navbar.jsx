@@ -6,7 +6,7 @@ import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { LiaBoxSolid } from "react-icons/lia";
 import { GiBigDiamondRing } from "react-icons/gi";
 import { FiMenu, FiX } from "react-icons/fi";
-import { useCart } from "../../context/CartContext"; // Importa el hook useCart
+import { useCart } from "../../context/CartContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -73,6 +73,11 @@ const Navbar = () => {
                   <span>{cart.length}</span>
                 </button>
               </Link>
+              <Link to="/shop">
+                <button className="bg-contessa-300 shadow-md shadow-contessa-800 text-contessa-800 py-2 px-2 rounded-md hover:bg-contessa-400 transition duration-200 flex justify-center items-center gap-2 w-full">
+                  Productos <GiBigDiamondRing className="text-xl" />
+                </button>
+              </Link>
               {user ? (
                 <>
                   {user.imagen && (
@@ -125,7 +130,10 @@ const Navbar = () => {
             >
               <ul className="p-4 space-y-4 h-full flex flex-col justify-start">
                 <div className=" flex flex-row justify-end w-full">
-                  <FiX className="h-6 w-6" onClick={handleMenuToggle} />
+                  <FiX
+                    className="h-6 w-6 text-contessa-800"
+                    onClick={handleMenuToggle}
+                  />
                 </div>
                 {user ? (
                   <>

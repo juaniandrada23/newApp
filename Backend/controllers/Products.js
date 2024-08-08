@@ -50,9 +50,27 @@ const deleteProduct = (req, res) => {
     });
 };
 
+const filterProducts = (req, res) => {
+    const filters = {
+        name: req.query.name,
+        minPrice: parseFloat(req.query.minPrice),
+        maxPrice: parseFloat(req.query.maxPrice),
+        sortOrder: req.query.sortOrder,
+    };
+
+    Product.findFilteredProducts(filters, (err, products) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else {
+            res.status(200).json(products);
+        }
+    });
+};
+
 export default {
     getAllProducts,
     getProductById,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    filterProducts
 };

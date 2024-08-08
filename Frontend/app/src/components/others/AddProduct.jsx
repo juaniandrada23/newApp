@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import authService from "../../services/authService";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { MdDelete } from "react-icons/md";
@@ -15,11 +16,22 @@ const AddProduct = () => {
   const [stock, setStock] = useState("");
   const [image, setImage] = useState("");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
+  const [showModal, setShowModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+
+  const user = useMemo(() => authService.getCurrentUser(), []);
+  const token = useMemo(() => (user ? user.token : null), [user]);
+
+  const fetchProducts = async () => {
+    try {
       const { data } = await axios.get("http://localhost:3000/auth/products");
       setProducts(data);
-    };
+    } catch (error) {
+      console.error("Error al obtener productos:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -27,11 +39,10 @@ const AddProduct = () => {
     e.preventDefault();
     const newProduct = { name, description, price, stock, image };
     try {
-      const { data } = await axios.post(
-        "http://localhost:3000/auth/products/add",
-        newProduct
-      );
-      setProducts([...products, data]);
+      await axios.post("http://localhost:3000/auth/products/add", newProduct, {
+        headers: { "x-access-token": token },
+      });
+      fetchProducts();
       setName("");
       setDescription("");
       setPrice("");
@@ -40,6 +51,42 @@ const AddProduct = () => {
     } catch (error) {
       console.error("Error al añadir producto:", error);
     }
+  };
+
+  const handleDeleteProduct = async () => {
+    if (productToDelete) {
+      try {
+        await axios.delete(
+          `http://localhost:3000/auth/products/${productToDelete.id}`,
+          {
+            headers: { "x-access-token": token },
+          }
+        );
+        fetchProducts();
+        setShowModal(false);
+        setProductToDelete(null);
+
+        const remainingProducts = products.length - 1;
+        const totalPagesAfterDeletion = Math.ceil(
+          remainingProducts / itemsPerPage
+        );
+        if (currentPage > totalPagesAfterDeletion) {
+          setCurrentPage(totalPagesAfterDeletion);
+        }
+      } catch (error) {
+        console.error("Error al borrar producto:", error);
+      }
+    }
+  };
+
+  const handleShowModal = (product) => {
+    setProductToDelete(product);
+    setShowModal(true);
+  };
+
+  const handleHideModal = () => {
+    setShowModal(false);
+    setProductToDelete(null);
   };
 
   useEffect(() => {
@@ -98,7 +145,10 @@ const AddProduct = () => {
                   <p className="text-contessa-700">Precio: ${product.price}</p>
                   <div className="w-full flex justify-between flex-row">
                     <p className="text-contessa-600">Stock: {product.stock}</p>
-                    <MdDelete className="text-4xl text-contessa-50 p-1 rounded-2xl bg-contessa-500 "/>
+                    <MdDelete
+                      className="text-4xl text-contessa-50 p-1 rounded-2xl bg-contessa-500 cursor-pointer"
+                      onClick={() => handleShowModal(product)}
+                    />
                   </div>
                 </div>
               ))}
@@ -116,7 +166,6 @@ const AddProduct = () => {
                 Anterior
               </button>
               <h1 className="font-bold text-contessa-800">
-                {" "}
                 {currentPage} de {totalPages}
               </h1>
               <button
@@ -183,6 +232,32 @@ const AddProduct = () => {
         </div>
       </div>
       <Footer />
+
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-contessa-900 bg-opacity-75">
+          <div className="bg-contessa-50 text-contessa-900 p-6 rounded-md shadow-md xs:mx-5 md:mx-0">
+            <h2 className="text-lg font-bold mb-4">Confirmar Eliminación</h2>
+            <p>
+              ¿Está seguro que quiere borrar el siguiente producto:{" "}
+              <strong>{productToDelete.name}</strong>?
+            </p>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={handleHideModal}
+                className="bg-contessa-300 text-contessa-700 px-4 py-2 rounded-md mr-2"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDeleteProduct}
+                className="bg-contessa-500 text-contessa-50 font-semibold px-4 py-2 rounded-md"
+              >
+                Borrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
